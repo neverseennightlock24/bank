@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 
 class BankAccount:
-    def __init__(self, balance, name, transactions=None):
+    def __init__(self, balance, name, transactions = None):
         self.balance = balance
         self.name = name
         self.transactions = transactions if transactions is not None else []
@@ -12,13 +12,13 @@ class BankAccount:
         try:
             deposit = float(input("What would you like to add to your balance? $"))
             if deposit < 0:
-                print("You cannot deposit a negative amount.")
+                print("You cannot deposit a negative amount. ")
             else:
                 self.balance += deposit
                 self.transactions.append((datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "Deposit", deposit))
                 print(f"Your new balance is ${self.balance:.2f}")
         except ValueError:
-            print("Invalid input. Please enter a numeric value.")
+            print("Invalid input. Please enter a numeric value. ")
 
     def subtract_balance(self):
         try:
@@ -32,14 +32,14 @@ class BankAccount:
                 self.transactions.append((datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "Withdrawal", -withdraw))
                 print(f"Your new balance is ${self.balance:.2f}")
         except ValueError:
-            print("Invalid input. Please enter a numeric value.")
+            print("Invalid input. Please enter a numeric value. ")
 
     def check_balance(self):
         print(f"{self.name}'s bank account balance is ${self.balance:.2f}")
 
     def view_transactions(self):
         if not self.transactions:
-            print("No transactions available.")
+            print("No transactions available. ")
         else:
             print("Transaction History:")
             for date, type, amount in self.transactions:
@@ -88,7 +88,7 @@ def load_accounts(filename="accounts.json"):
 
 def save_accounts(accounts, filename="accounts.json"):
     with open(filename, "w") as file:
-        json.dump(accounts, file, indent=4)
+        json.dump(accounts, file, indent = 4)
 
 def main():
     accounts = load_accounts()
@@ -98,7 +98,7 @@ def main():
 
         if user_name in accounts:
             bank_user = BankAccount.from_dict(accounts[user_name])
-            print(f"Welcome back, {user_name}.")
+            print(f"Welcome back, {user_name}. ")
             break
         else:
             create_new = input(f"The name '{user_name}' is not in our records. Would you like to create a new account with this name? (yes/no) ").strip().lower()
@@ -106,7 +106,7 @@ def main():
                 bank_user = BankAccount(0, user_name)
                 accounts[user_name] = bank_user.to_dict()
                 save_accounts(accounts)
-                print(f"Welcome, {user_name}. Your account has been created.")
+                print(f"Welcome, {user_name}. Your account has been created. ")
                 break
             elif create_new == 'no':
                 print("Please enter a different name.")
@@ -166,12 +166,12 @@ def main():
                 except ValueError:
                     print("Invalid input. Please enter a numeric value.")
             else:
-                print(f"No account found with the name '{target_name}'.")
+                print(f"No account found with the name '{target_name}'. ")
 
         elif user_input == "7":
             new_name = input("Enter the new account name: ")
             if new_name in accounts:
-                print(f"An account with the name '{new_name}' already exists. Please choose a different name.")
+                print(f"An account with the name '{new_name}' already exists. Please choose a different name. ")
             else:
                 bank_user.change_name(new_name)
                 del accounts[user_name]
@@ -187,7 +187,7 @@ def main():
                 print(f"Your account has been closed. Thank you for banking with us, {bank_user.name}.")
                 break
             else:
-                print("Account closure cancelled.")
+                print("Account closure cancelled. ")
 
         elif user_input == "9":
             print(f"Ending session. Thank you for banking with us, {bank_user.name}.")
@@ -195,7 +195,7 @@ def main():
             break
 
         else:
-            print("Invalid choice. Please select a valid option.")
+            print("Invalid choice. Please select a valid option. ")
 
     print(f"Your final account balance is ${bank_user.balance:.2f}")
 
